@@ -71,11 +71,9 @@ class Value(object):
     out.op = '^'
     return out
 
-  def tanh(self, other):
+  def tanh(self):
     out = Value(math.tanh(self.data))
-    out.operands = [
-      Operand(self, 1 - (out.data ** 2))
-    ]
+    out.operands = [Operand(self, 1 - (out.data**2))]
     out.op = 'tanh'
     return out
 
