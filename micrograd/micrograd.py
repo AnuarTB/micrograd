@@ -63,9 +63,9 @@ class Value(object):
 
   @scalar_to_value
   def __pow__(self, other):
-    out = Value(self.data**other)
+    out = Value(self.data**other.data)
     out.operands = [
-      Operand(self, other * (self.data ** (other - 1))),
+      Operand(self, other * (self.data ** (other.data - 1))),
       Operand(other, out.data * math.log(self.data)),
     ]
     out.op = '^'
@@ -88,6 +88,9 @@ class Value(object):
 
   def __rtruediv__(self, other):
     return Value(other) / self
+
+  def __rpow__(self, other):
+    return Value(other) ** self
 
   def backward(self):
     self.grad = 1
