@@ -77,6 +77,18 @@ class Value(object):
     out.op = 'tanh'
     return out
 
+  def exp(self):
+    out = Value(math.exp(self.data))
+    out.operands = [Operand(self, out.data)]
+    out.op = 'exp'
+    return out
+
+  def log(self):
+    out = Value(math.log(self.data))
+    out.operands = [Operand(self, 1.0 / self.data)]
+    out.op = 'log'
+    return out
+
   def __rmul__(self, other):
     return self * other
 
