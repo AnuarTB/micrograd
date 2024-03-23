@@ -1,6 +1,6 @@
 import unittest
 
-from micrograd import Value
+from value import Value
 
 class TestValue(unittest.TestCase):
     def test_add(self):

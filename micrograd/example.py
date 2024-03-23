@@ -1,4 +1,4 @@
-from micrograd import Value
+from value import Value
 
 a = Value(3)
 b = Value(4)
