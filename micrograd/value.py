@@ -40,7 +40,7 @@ class Value(object):
   @scalar_to_value
   def __sub__(self, other):
     out = Value(self.data - other.data)
-    out.operands = [Operand(self, 1), Operand(self, -1)]
+    out.operands = [Operand(self, 1), Operand(other, -1)]
     out.op = '-'
     return out
 
@@ -61,12 +61,10 @@ class Value(object):
     out.op = '/'
     return out
 
-  @scalar_to_value
   def __pow__(self, other):
-    out = Value(self.data**other.data)
+    out = Value(self.data**other)
     out.operands = [
-      Operand(self, other * (self.data ** (other.data - 1))),
-      Operand(other, out.data * math.log(self.data)),
+      Operand(self, other * (self.data ** (other - 1))),
     ]
     out.op = '^'
     return out
@@ -106,7 +104,7 @@ class Value(object):
 
   def backward(self):
     self.grad = 1
-    self.is_enqueue = True
+    self.is_enqueued = True
 
     q = queue.Queue()
     q.put(self)
